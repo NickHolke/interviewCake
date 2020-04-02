@@ -31,3 +31,17 @@ function isPalindrome(str) {
   
   return true;
 }
+
+function hasPalindromePermutation(theString) {
+  let noPair = new Set();
+  
+  for (let char of theString) {
+    if (noPair.has(char)) {
+      noPair.delete(char);
+    } else {
+      noPair.add(char);
+    }
+  }
+  
+  return noPair.size <= 1
+}
