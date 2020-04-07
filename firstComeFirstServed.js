@@ -21,3 +21,24 @@ function isFirstComeFirstServed(takeOutOrders, dineInOrders, servedOrders) {
 
   return true;
 }
+
+const isFirstComeFirstServed = (takeOutOrders, dineInOrders, servedOrders) => {
+  let takeOutIdx = 0, dineInIdx = 0;
+  
+  for (let i = 0; i < servedOrders.length; i++) {
+    let order = servedOrders[i];
+    if (takeOutIdx < takeOutOrders.length && order === takeOutOrders[takeOutIdx]) {
+      takeOutIdx++;
+    } else if (dineInIdx < dineInOrders.length && order === dineInOrders[dineInIdx]){
+      dineInIdx++;
+    } else {
+      return false;
+    }
+  }
+  
+  if (takeOutIdx !== takeOutOrders.length || dineInIdx !== dineInOrders.length) {
+    return false;
+  }
+  
+  return true;
+}
