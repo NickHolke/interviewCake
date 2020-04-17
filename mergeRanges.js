@@ -1,21 +1,17 @@
 function mergeRanges(meetings) {
 
-  // Merge meetings ranges
-  meetings.sort((a, b) => a.startTime - b.startTime);
+  let meetingsCopy = JSON.parse(JSON.stringify(meetings));
+  meetingsCopy.sort((a, b) => a.startTime - b.startTime);
   
-  let currentMeeting = meetings[0];
-  let merged = [];
+  let merged = [meetingsCopy[0]];
   
-  for (let i = 1; i < meetings.length; i++) {
-    let compareMeeting = meetings[i];
-    if (currentMeeting.endTime >= compareMeeting.startTime) {
-      currentMeeting.endTime = Math.max(compareMeeting.endTime, currentMeeting.endTime);
+  for (let i = 1; i < meetingsCopy.length; i++) {
+    let currentMeeting = meetingsCopy[i];
+    let lastMeeting = merged[merged.length - 1];
+
+    if (lastMeeting.endTime >= currentMeeting.startTime) {
+      lastMeeting.endTime = Math.max(lastMeeting.endTime, currentMeeting.endTime);
     } else {
-      merged.push(currentMeeting);
-      currentMeeting = compareMeeting;
-    }
-    
-    if (i === meetings.length - 1) {
       merged.push(currentMeeting);
     }
   }
