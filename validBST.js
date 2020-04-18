@@ -69,3 +69,19 @@ function isBinarySearchTree(treeRoot) {
 
   return true;
 }
+
+function isBinarySearchTree(node, lowerBound, upperBound) {
+  lowerBound = lowerBound === undefined ? -Infinity : lowerBound;
+  upperBound = upperBound === undefined ? Infinity : upperBound;
+
+  if (!node) {
+    return true;
+  }
+
+  if (node.value >= lowerBound || node.value <= upperBound) {
+    return false;
+  }
+
+  return isBinarySearchTree(node.left, lowerBound, node.value) &&
+         isBinarySearchTree(node.right, node.value, upperBound);
+}
