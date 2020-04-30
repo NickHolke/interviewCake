@@ -32,3 +32,43 @@ function getNumberOfIslands(binaryMatrix) {
      
   return islandCount;
 }
+
+function getNumberOfIslands(binaryMatrix) {
+  const rows = binaryMatrix.length;
+  const cols = binaryMatrix[0].length;
+  let islandCount = 0;
+  
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      if (binaryMatrix[row][col] === 1) {
+        islandCount++;
+        markIsland(binaryMatrix, row, col)
+      }
+    }
+  }
+  
+  return islandCount;
+}
+
+function markIsland(matrix, row, col) {
+  
+  let q = [[row, col]];
+  
+  while (q.length) {
+    [currRow, currCol] = q.pop();
+    
+    if (matrix[currRow][currCol] === 1) {
+      matrix[currRow][currCol] = -1;
+      pushIfValid(matrix, q, currRow - 1, currCol)
+      pushIfValid(matrix, q, currRow + 1, currCol)
+      pushIfValid(matrix, q, currRow, currCol + 1)
+      pushIfValid(matrix, q, currRow, currCol - 1)
+    }
+  }
+}
+
+function pushIfValid(matrix, q, row, col) {
+  if (row >= 0 && row < matrix.length && col >=0 && col < matrix[0].length) {
+    q.unshift([row, col])
+  }
+}
